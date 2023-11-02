@@ -7,8 +7,10 @@ public class ProxyClient {
     public static void main(String[] args) {
         String serverName = "localhost"; // Proxy server name
         int port = 8080;                // Proxy server port
-
         try {
+            String command = "java -cp . MultiThreadedProxyServer.java";
+            Process process = Runtime.getRuntime().exec(command);
+
             System.out.println("Connecting to " + serverName + " on port " + port);
             Socket client = new Socket(serverName, port);
 
@@ -25,10 +27,11 @@ public class ProxyClient {
             // Receiving data from proxy server
             InputStream inFromServer = client.getInputStream();
             BufferedReader in = new BufferedReader(new InputStreamReader(inFromServer));
-
+            
             String line;
-            while ((line = in.readLine()) != null) {
-                System.out.println(line);
+            while ((line = in.readLine()) != null) 
+            {
+               System.out.println(line);
             }
 
             client.close();
